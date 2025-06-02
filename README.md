@@ -20,6 +20,46 @@ The script relies on the following main Python libraries:
 *   `markdownify`: For converting HTML content to Markdown.
 *   `urllib.parse`: For URL joining and parsing (part of the Python standard library).
 
+You can install these dependencies using the `requirements.txt` file provided in the repository:
+```bash
+pip install -r requirements.txt
+```
+
+## Installation
+
+To set up the script for use, follow these steps:
+
+1.  **Clone the repository (if you haven't already):**
+    ```bash
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
+    *(Replace `<repository-url>` and `<repository-directory>` with the actual URL and directory name)*
+
+2.  **Create a Python virtual environment (recommended):**
+    ```bash
+    python -m venv venv
+    ```
+
+3.  **Activate the virtual environment:**
+    *   On Windows:
+        ```bash
+        .\venv\Scripts\activate
+        ```
+    *   On macOS and Linux:
+        ```bash
+        source venv/bin/activate
+        ```
+
+4.  **Install the required dependencies:**
+    It's good practice to have a `requirements.txt` file listing the project's dependencies. This file would be used as follows:
+    ```bash
+    pip install -r requirements.txt
+    ```
+    *(This step assumes a `requirements.txt` file will be created. If it's not present yet, this instruction points to future capability.)*
+
+After these steps, you should be able to run the script.
+
 ## Basic Usage
 
 To use the script, run it from the command line, providing the starting URL, and optionally specifying the maximum recursion depth and an output file name.
