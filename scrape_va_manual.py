@@ -81,13 +81,18 @@ def fetch_html(url: str, session: HTMLSession) -> str | None:
     try:
         print(f"Fetching URL (LIVE): {url}", file=sys.stderr)
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
-        r = session.get(url, headers=headers, timeout=45) 
+        r = session.get(url, headers=headers, timeout=45) # Initial request timeout
         r.raise_for_status() 
         
-        print("Rendering JavaScript...", file=sys.stderr)
-        render_args = {'timeout': 60, 'sleep': 1, 'keep_page': True} 
+        print("Rendering JavaScript with increased sleep and timeout...", file=sys.stderr)
+        # Increased sleep to 5s, timeout to 90s for rendering
+        render_args = {'timeout': 90, 'sleep': 5, 'keep_page': True} 
         r.html.render(**render_args)
         html_text = r.html.html
+        
+        # Check if #eg-ss-view has any children after render, indicating content load
+        if r.html.find('#eg-ss-view', first=True) and not r.html.find('#eg-ss-view > *'):
+            print(f"Warning: #eg-ss-view appears empty after render for {url}. Content might not have loaded.", file=sys.stderr)
 
         if "Request Rejected" in html_text and ("Your support ID is:" in html_text or "Appliance name:" in html_text):
             print(f"WAF Block Page detected for {url}. Returning None.", file=sys.stderr)
